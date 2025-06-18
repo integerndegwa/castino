@@ -96,7 +96,9 @@
         }
 
         .cart-sidebar.open {
-            width: 320px; /* Adjust width as needed */
+            /* Optimized for mobile: takes 80% of viewport width but maxes out at 320px */
+            width: 80vw;
+            max-width: 320px;
         }
 
         .cart-sidebar .closebtn {
@@ -152,12 +154,12 @@
 
             <!-- Navigation -->
             <nav class="flex-grow text-center mt-4 md:mt-0">
-                <ul class="flex justify-center space-x-6 md:space-x-10 text-lg">
-                    <li><a href="#home" class="hover:text-secondary-white transition duration-300 ease-in-out px-3 py-2 rounded-md">Home</a></li>
-                    <li><a href="#about" class="hover:text-secondary-white transition duration-300 ease-in-out px-3 py-2 rounded-md">About Us</a></li>
-                    <li><a href="#menu" class="hover:text-secondary-white transition duration-300 ease-in-out px-3 py-2 rounded-md">Menu</a></li>
-                    <li><a href="#offers" class="hover:text-secondary-white transition duration-300 ease-in-out px-3 py-2 rounded-md">Offers</a></li>
-                    <li><a href="#contact" class="hover:text-secondary-white transition duration-300 ease-in-out px-3 py-2 rounded-md">Contact</a></li>
+                <ul class="flex justify-center flex-wrap space-x-3 md:space-x-10 text-lg">
+                    <li><a href="#home" class="hover:text-secondary-white transition duration-300 ease-in-out px-2 py-1 md:px-3 md:py-2 rounded-md">Home</a></li>
+                    <li><a href="#about" class="hover:text-secondary-white transition duration-300 ease-in-out px-2 py-1 md:px-3 md:py-2 rounded-md">About Us</a></li>
+                    <li><a href="#menu" class="hover:text-secondary-white transition duration-300 ease-in-out px-2 py-1 md:px-3 md:py-2 rounded-md">Menu</a></li>
+                    <li><a href="#offers" class="hover:text-secondary-white transition duration-300 ease-in-out px-2 py-1 md:px-3 md:py-2 rounded-md">Offers</a></li>
+                    <li><a href="#contact" class="hover:text-secondary-white transition duration-300 ease-in-out px-2 py-1 md:px-3 md:py-2 rounded-md">Contact</a></li>
                 </ul>
             </nav>
 
@@ -177,14 +179,14 @@
         <div class="slide" style="background-image: url('banner2.png');"></div>
         <div class="slide" style="background-image: url('banner1.png');"></div>
 
-        <div class="relative z-10 p-8 bg-black bg-opacity-50 rounded-xl shadow-2xl">
-            <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4 animate-bounce">
+        <div class="relative z-10 p-4 md:p-8 bg-black bg-opacity-50 rounded-xl shadow-2xl mx-4">
+            <h1 class="text-3xl md:text-6xl font-extrabold text-white leading-tight mb-4 animate-bounce">
                 Welcome to Casita Spice House
             </h1>
-            <p class="text-xl md:text-2xl text-primary-orange font-medium mb-6">
+            <p class="text-lg md:text-2xl text-primary-orange font-medium mb-6">
                 Authentic Indian Flavors, Unforgettable Dining.
             </p>
-            <a href="#menu" class="bg-primary-orange text-secondary-white text-xl font-bold py-3 px-8 rounded-full shadow-lg hover:bg-orange-600 transform hover:scale-105 transition duration-300 ease-in-out inline-block">
+            <a href="#menu" class="bg-primary-orange text-secondary-white text-lg md:text-xl font-bold py-2 px-6 md:py-3 md:px-8 rounded-full shadow-lg hover:bg-orange-600 transform hover:scale-105 transition duration-300 ease-in-out inline-block">
                 Explore Our Menu
             </a>
         </div>
@@ -193,8 +195,8 @@
     <!-- About Us Section -->
     <section id="about" class="container mx-auto my-12 p-6 md:p-10 bg-white rounded-xl shadow-lg flex flex-col md:flex-row items-center gap-8">
         <div class="md:w-1/2">
-            <h2 class="text-4xl font-bold text-primary-orange mb-6 border-b-4 border-primary-orange pb-2 inline-block">About Casita Spice House</h2>
-            <p class="text-lg leading-relaxed text-dark-gray">
+            <h2 class="text-3xl md:text-4xl font-bold text-primary-orange mb-4 md:mb-6 border-b-4 border-primary-orange pb-2 inline-block">About Casita Spice House</h2>
+            <p class="text-base md:text-lg leading-relaxed text-dark-gray">
                 Casita Spice House brings the authentic taste of Indian cuisine to Nairobi. Our chefs carefully craft each dish using traditional recipes and the freshest spices to ensure an unforgettable dining experience.
             </p>
         </div>
@@ -205,12 +207,12 @@
 
     <!-- Menu Categories Section -->
     <section class="container mx-auto my-12 p-6 md:p-10 bg-primary-orange text-white rounded-xl shadow-lg">
-        <h2 class="text-4xl font-bold text-secondary-white mb-8 text-center border-b-4 border-secondary-white pb-2 inline-block mx-auto block">Our Menu Categories</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <h2 class="text-3xl md:text-4xl font-bold text-secondary-white mb-6 md:mb-8 text-center border-b-4 border-secondary-white pb-2 inline-block mx-auto block">Our Menu Categories</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             <!-- Curry Category -->
-            <div class="bg-white text-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out">
-                <h3 class="text-2xl font-semibold text-primary-orange mb-4 text-center">Curry</h3>
-                <div class="grid grid-cols-2 gap-4">
+            <div class="bg-white text-gray-800 p-4 md:p-6 rounded-lg shadow-md hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out">
+                <h3 class="text-xl md:text-2xl font-semibold text-primary-orange mb-3 md:mb-4 text-center">Curry</h3>
+                <div class="grid grid-cols-2 gap-3 md:gap-4">
                     <div class="image-container">
                         <img src="currybutterchicken.png" alt="Curry Dish 1" class="w-full h-auto rounded-md shadow-sm cursor-pointer">
                     </div>
@@ -221,9 +223,9 @@
             </div>
 
             <!-- Tandoori Category -->
-            <div class="bg-white text-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out">
-                <h3 class="text-2xl font-semibold text-primary-orange mb-4 text-center">Tandoori</h3>
-                <div class="grid grid-cols-3 gap-4">
+            <div class="bg-white text-gray-800 p-4 md:p-6 rounded-lg shadow-md hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out">
+                <h3 class="text-xl md:text-2xl font-semibold text-primary-orange mb-3 md:mb-4 text-center">Tandoori</h3>
+                <div class="grid grid-cols-3 gap-3 md:gap-4">
                     <div class="image-container">
                         <img src="tandoorichicken.png" alt="Tandoori Dish 1" class="w-full h-auto rounded-md shadow-sm cursor-pointer">
                     </div>
@@ -237,9 +239,9 @@
             </div>
 
             <!-- Biryani Category -->
-            <div class="bg-white text-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out">
-                <h3 class="text-2xl font-semibold text-primary-orange mb-4 text-center">Biryani</h3>
-                <div class="grid grid-cols-3 gap-4">
+            <div class="bg-white text-gray-800 p-4 md:p-6 rounded-lg shadow-md hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out">
+                <h3 class="text-xl md:text-2xl font-semibold text-primary-orange mb-3 md:mb-4 text-center">Biryani</h3>
+                <div class="grid grid-cols-3 gap-3 md:gap-4">
                     <div class="image-container">
                         <img src="chickenbiryani.png" alt="Biryani Dish 1" class="w-full h-auto rounded-md shadow-sm cursor-pointer">
                     </div>
@@ -253,9 +255,9 @@
             </div>
 
             <!-- Desserts Category -->
-            <div class="bg-white text-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out">
-                <h3 class="text-2xl font-semibold text-primary-orange mb-4 text-center">Desserts</h3>
-                <div class="grid grid-cols-2 gap-4">
+            <div class="bg-white text-gray-800 p-4 md:p-6 rounded-lg shadow-md hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out">
+                <h3 class="text-xl md:text-2xl font-semibold text-primary-orange mb-3 md:mb-4 text-center">Desserts</h3>
+                <div class="grid grid-cols-2 gap-3 md:gap-4">
                     <div class="image-container">
                         <img src="gulabjamun.png" alt="Dessert 1" class="w-full h-auto rounded-md shadow-sm cursor-pointer">
                     </div>
@@ -269,27 +271,27 @@
 
     <!-- Menu Section -->
     <section id="menu" class="container mx-auto my-12 p-6 md:p-10 bg-white rounded-xl shadow-lg">
-        <h2 class="text-4xl font-bold text-primary-orange mb-8 text-center border-b-4 border-primary-orange pb-2 inline-block mx-auto block">Our Delicacies</h2>
+        <h2 class="text-3xl md:text-4xl font-bold text-primary-orange mb-6 md:mb-8 text-center border-b-4 border-primary-orange pb-2 inline-block mx-auto block">Our Delicacies</h2>
 
         <!-- Tabs for Menu Segments -->
-        <div class="flex justify-center mb-8">
-            <button class="menu-tab px-6 py-3 rounded-full text-lg font-semibold mx-2 bg-primary-orange text-secondary-white hover:bg-orange-600 hover:text-white transition duration-300 ease-in-out" data-target="featured-menu">Featured</button>
-            <button class="menu-tab px-6 py-3 rounded-full text-lg font-semibold mx-2 bg-gray-200 text-gray-700 hover:bg-primary-orange hover:text-secondary-white transition duration-300 ease-in-out" data-target="main-dishes-menu">Main Dishes</button>
-            <button class="menu-tab px-6 py-3 rounded-full text-lg font-semibold mx-2 bg-gray-200 text-gray-700 hover:bg-primary-orange hover:text-secondary-white transition duration-300 ease-in-out" data-target="specials-menu">Specials</button>
+        <div class="flex flex-wrap justify-center mb-8">
+            <button class="menu-tab px-4 py-2 md:px-6 md:py-3 rounded-full text-base md:text-lg font-semibold mx-1 my-1 md:mx-2 bg-primary-orange text-secondary-white hover:bg-orange-600 hover:text-white transition duration-300 ease-in-out" data-target="featured-menu">Featured</button>
+            <button class="menu-tab px-4 py-2 md:px-6 md:py-3 rounded-full text-base md:text-lg font-semibold mx-1 my-1 md:mx-2 bg-gray-200 text-gray-700 hover:bg-primary-orange hover:text-secondary-white transition duration-300 ease-in-out" data-target="main-dishes-menu">Main Dishes</button>
+            <button class="menu-tab px-4 py-2 md:px-6 md:py-3 rounded-full text-base md:text-lg font-semibold mx-1 my-1 md:mx-2 bg-gray-200 text-gray-700 hover:bg-primary-orange hover:text-secondary-white transition duration-300 ease-in-out" data-target="specials-menu">Specials</button>
         </div>
 
         <!-- Featured Dishes Segment -->
-        <div id="featured-menu" class="menu-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div id="featured-menu" class="menu-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             <!-- Butter Chicken -->
-            <div class="bg-gray-50 p-6 rounded-lg shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
-                <div class="image-container mb-4">
+            <div class="bg-gray-50 p-4 md:p-6 rounded-lg shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
+                <div class="image-container mb-3 md:mb-4">
                     <img src="currybutterchicken.png" alt="Butter Chicken" class="w-full h-auto rounded-lg shadow-sm cursor-pointer">
                 </div>
-                <h3 class="text-2xl font-bold text-primary-orange mb-2">Butter Chicken</h3>
-                <p class="text-dark-gray mb-3">Creamy tomato-based curry with tender chicken pieces, a classic Indian delight.</p>
+                <h3 class="text-xl md:text-2xl font-bold text-primary-orange mb-1 md:mb-2">Butter Chicken</h3>
+                <p class="text-sm md:text-base text-dark-gray mb-2 md:mb-3">Creamy tomato-based curry with tender chicken pieces, a classic Indian delight.</p>
                 <div class="flex justify-between items-center">
-                    <span class="text-primary-orange font-bold text-xl">KES 850</span>
-                    <button class="add-to-cart bg-primary-orange text-secondary-white px-5 py-2 rounded-full shadow-md hover:bg-orange-600 hover:text-white transition duration-300 ease-in-out"
+                    <span class="text-primary-orange font-bold text-lg md:text-xl">KES 850</span>
+                    <button class="add-to-cart bg-primary-orange text-secondary-white px-4 py-1 md:px-5 md:py-2 rounded-full shadow-md hover:bg-orange-600 hover:text-white transition duration-300 ease-in-out"
                             data-id="bc1" data-name="Butter Chicken" data-price="850">
                         Add to Cart
                     </button>
@@ -297,15 +299,15 @@
             </div>
 
             <!-- Vegetable Biryani -->
-            <div class="bg-gray-50 p-6 rounded-lg shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
-                <div class="image-container mb-4">
+            <div class="bg-gray-50 p-4 md:p-6 rounded-lg shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
+                <div class="image-container mb-3 md:mb-4">
                     <img src="vegetablebiryani.png" alt="Vegetable Biryani" class="w-full h-auto rounded-lg shadow-sm cursor-pointer">
                 </div>
-                <h3 class="text-2xl font-bold text-primary-orange mb-2">Vegetable Biryani</h3>
-                <p class="text-dark-gray mb-3">Fragrant basmati rice cooked with assorted vegetables and aromatic spices.</p>
+                <h3 class="text-xl md:text-2xl font-bold text-primary-orange mb-1 md:mb-2">Vegetable Biryani</h3>
+                <p class="text-sm md:text-base text-dark-gray mb-2 md:mb-3">Fragrant basmati rice cooked with assorted vegetables and aromatic spices.</p>
                 <div class="flex justify-between items-center">
-                    <span class="text-primary-orange font-bold text-xl">KES 700</span>
-                    <button class="add-to-cart bg-primary-orange text-secondary-white px-5 py-2 rounded-full shadow-md hover:bg-orange-600 hover:text-white transition duration-300 ease-in-out"
+                    <span class="text-primary-orange font-bold text-lg md:text-xl">KES 700</span>
+                    <button class="add-to-cart bg-primary-orange text-secondary-white px-4 py-1 md:px-5 md:py-2 rounded-full shadow-md hover:bg-orange-600 hover:text-white transition duration-300 ease-in-out"
                             data-id="vb1" data-name="Vegetable Biryani" data-price="700">
                         Add to Cart
                     </button>
@@ -313,15 +315,15 @@
             </div>
 
             <!-- Gulab Jamun -->
-            <div class="bg-gray-50 p-6 rounded-lg shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
-                <div class="image-container mb-4">
+            <div class="bg-gray-50 p-4 md:p-6 rounded-lg shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
+                <div class="image-container mb-3 md:mb-4">
                     <img src="gulabjamun.png" alt="Gulab Jamun" class="w-full h-auto rounded-lg shadow-sm cursor-pointer">
                 </div>
-                <h3 class="text-2xl font-bold text-primary-orange mb-2">Gulab Jamun</h3>
-                <p class="text-dark-gray mb-3">Soft, deep-fried milk-solids dumplings, soaked in rose-flavored sugar syrup.</p>
+                <h3 class="text-xl md:text-2xl font-bold text-primary-orange mb-1 md:mb-2">Gulab Jamun</h3>
+                <p class="text-sm md:text-base text-dark-gray mb-2 md:mb-3">Soft, deep-fried milk-solids dumplings, soaked in rose-flavored sugar syrup.</p>
                 <div class="flex justify-between items-center">
-                    <span class="text-primary-orange font-bold text-xl">KES 300</span>
-                    <button class="add-to-cart bg-primary-orange text-secondary-white px-5 py-2 rounded-full shadow-md hover:bg-orange-600 hover:text-white transition duration-300 ease-in-out"
+                    <span class="text-primary-orange font-bold text-lg md:text-xl">KES 300</span>
+                    <button class="add-to-cart bg-primary-orange text-secondary-white px-4 py-1 md:px-5 md:py-2 rounded-full shadow-md hover:bg-orange-600 hover:text-white transition duration-300 ease-in-out"
                             data-id="gj1" data-name="Gulab Jamun" data-price="300">
                         Add to Cart
                     </button>
@@ -330,17 +332,17 @@
         </div>
 
         <!-- Main Dishes Segment (Hidden by default) -->
-        <div id="main-dishes-menu" class="menu-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 hidden">
+        <div id="main-dishes-menu" class="menu-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 hidden">
             <!-- Chicken Tikka Masala -->
-            <div class="bg-gray-50 p-6 rounded-lg shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
-                <div class="image-container mb-4">
+            <div class="bg-gray-50 p-4 md:p-6 rounded-lg shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
+                <div class="image-container mb-3 md:mb-4">
                     <img src="currybutterchicken.png" alt="Chicken Tikka Masala" class="w-full h-auto rounded-lg shadow-sm cursor-pointer">
                 </div>
-                <h3 class="text-2xl font-bold text-primary-orange mb-2">Chicken Tikka Masala</h3>
-                <p class="text-dark-gray mb-3">Grilled chicken pieces in a rich, spiced tomato and cream sauce.</p>
+                <h3 class="text-xl md:text-2xl font-bold text-primary-orange mb-1 md:mb-2">Chicken Tikka Masala</h3>
+                <p class="text-sm md:text-base text-dark-gray mb-2 md:mb-3">Grilled chicken pieces in a rich, spiced tomato and cream sauce.</p>
                 <div class="flex justify-between items-center">
-                    <span class="text-primary-orange font-bold text-xl">KES 900</span>
-                    <button class="add-to-cart bg-primary-orange text-secondary-white px-5 py-2 rounded-full shadow-md hover:bg-orange-600 hover:text-white transition duration-300 ease-in-out"
+                    <span class="text-primary-orange font-bold text-lg md:text-xl">KES 900</span>
+                    <button class="add-to-cart bg-primary-orange text-secondary-white px-4 py-1 md:px-5 md:py-2 rounded-full shadow-md hover:bg-orange-600 hover:text-white transition duration-300 ease-in-out"
                             data-id="ctm1" data-name="Chicken Tikka Masala" data-price="900">
                         Add to Cart
                     </button>
@@ -348,15 +350,15 @@
             </div>
 
             <!-- Palak Paneer -->
-            <div class="bg-gray-50 p-6 rounded-lg shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
-                <div class="image-container mb-4">
+            <div class="bg-gray-50 p-4 md:p-6 rounded-lg shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
+                <div class="image-container mb-3 md:mb-4">
                     <img src="currypalak.png" alt="Palak Paneer" class="w-full h-auto rounded-lg shadow-sm cursor-pointer">
                 </div>
-                <h3 class="text-2xl font-bold text-primary-orange mb-2">Palak Paneer</h3>
-                <p class="text-dark-gray mb-3">Cottage cheese cubes in a creamy spinach gravy, a nutritious vegetarian option.</p>
+                <h3 class="text-xl md:text-2xl font-bold text-primary-orange mb-1 md:mb-2">Palak Paneer</h3>
+                <p class="text-sm md:text-base text-dark-gray mb-2 md:mb-3">Cottage cheese cubes in a creamy spinach gravy, a nutritious vegetarian option.</p>
                 <div class="flex justify-between items-center">
-                    <span class="text-primary-orange font-bold text-xl">KES 750</span>
-                    <button class="add-to-cart bg-primary-orange text-secondary-white px-5 py-2 rounded-full shadow-md hover:bg-orange-600 hover:text-white transition duration-300 ease-in-out"
+                    <span class="text-primary-orange font-bold text-lg md:text-xl">KES 750</span>
+                    <button class="add-to-cart bg-primary-orange text-secondary-white px-4 py-1 md:px-5 md:py-2 rounded-full shadow-md hover:bg-orange-600 hover:text-white transition duration-300 ease-in-out"
                             data-id="pp1" data-name="Palak Paneer" data-price="750">
                         Add to Cart
                     </button>
@@ -364,15 +366,15 @@
             </div>
 
             <!-- Vegetable Korma -->
-            <div class="bg-gray-50 p-6 rounded-lg shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
-                <div class="image-container mb-4">
+            <div class="bg-gray-50 p-4 md:p-6 rounded-lg shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
+                <div class="image-container mb-3 md:mb-4">
                     <img src="vegetablekorma.png" alt="Vegetable Korma" class="w-full h-auto rounded-lg shadow-sm cursor-pointer">
                 </div>
-                <h3 class="text-2xl font-bold text-primary-orange mb-2">Vegetable Korma</h3>
-                <p class="text-dark-gray mb-3">Mixed vegetables cooked in a rich, mild, and creamy cashew-based sauce.</p>
+                <h3 class="text-xl md:text-2xl font-bold text-primary-orange mb-1 md:mb-2">Vegetable Korma</h3>
+                <p class="text-sm md:text-base text-dark-gray mb-2 md:mb-3">Mixed vegetables cooked in a rich, mild, and creamy cashew-based sauce.</p>
                 <div class="flex justify-between items-center">
-                    <span class="text-primary-orange font-bold text-xl">KES 680</span>
-                    <button class="add-to-cart bg-primary-orange text-secondary-white px-5 py-2 rounded-full shadow-md hover:bg-orange-600 hover:text-white transition duration-300 ease-in-out"
+                    <span class="text-primary-orange font-bold text-lg md:text-xl">KES 680</span>
+                    <button class="add-to-cart bg-primary-orange text-secondary-white px-4 py-1 md:px-5 md:py-2 rounded-full shadow-md hover:bg-orange-600 hover:text-white transition duration-300 ease-in-out"
                             data-id="vk1" data-name="Vegetable Korma" data-price="680">
                         Add to Cart
                     </button>
@@ -381,12 +383,12 @@
         </div>
 
         <!-- Specials Segment (Hidden by default) -->
-        <div id="specials-menu" class="menu-content p-6 rounded-lg shadow-md bg-primary-orange text-secondary-white hidden">
-            <h3 class="text-3xl font-bold mb-4 text-center">Today's Specials</h3>
-            <ul class="list-disc list-inside text-lg leading-loose mx-auto max-w-2xl">
-                <li class="mb-2"><strong>Weekend Special Offer:</strong> Use code <code class="bg-white text-primary-orange px-2 py-1 rounded-md text-sm">CASITA25</code> for 25% off your first order!</li>
-                <li class="mb-2"><strong>Free Delivery:</strong> On orders over KES 1,500</li>
-                <li class="mb-2"><strong>Family Meal Deal:</strong> 20% off when ordering for 4+ people</li>
+        <div id="specials-menu" class="menu-content p-4 md:p-6 rounded-lg shadow-md bg-primary-orange text-secondary-white hidden">
+            <h3 class="text-2xl md:text-3xl font-bold mb-3 md:mb-4 text-center">Today's Specials</h3>
+            <ul class="list-disc list-inside text-base md:text-lg leading-relaxed mx-auto max-w-2xl">
+                <li class="mb-1 md:mb-2"><strong>Weekend Special Offer:</strong> Use code <code class="bg-white text-primary-orange px-1 py-0.5 rounded-md text-xs md:text-sm">CASITA25</code> for 25% off your first order!</li>
+                <li class="mb-1 md:mb-2"><strong>Free Delivery:</strong> On orders over KES 1,500</li>
+                <li class="mb-1 md:mb-2"><strong>Family Meal Deal:</strong> 20% off when ordering for 4+ people</li>
                 <li><strong>Loyalty Program:</strong> Earn points with every order and redeem for exclusive discounts!</li>
             </ul>
         </div>
@@ -394,36 +396,36 @@
 
     <!-- Offers Banner Section -->
     <section id="offers" class="container mx-auto my-12 p-6 md:p-10 bg-white rounded-xl shadow-lg text-center">
-        <h2 class="text-4xl font-bold text-primary-orange mb-8 border-b-4 border-primary-orange pb-2 inline-block">Special Offers & Promotions</h2>
+        <h2 class="text-3xl md:text-4xl font-bold text-primary-orange mb-6 md:mb-8 border-b-4 border-primary-orange pb-2 inline-block">Special Offers & Promotions</h2>
         <div class="image-container">
             <!-- Placeholder for your PNG banner -->
             <img src="hero.png"
                  alt="Special Offers Banner"
                  class="w-full h-auto rounded-lg shadow-xl cursor-pointer">
         </div>
-        <p class="text-lg text-dark-gray mt-4">Check back often for exciting new deals!</p>
+        <p class="text-base md:text-lg text-dark-gray mt-3 md:mt-4">Check back often for exciting new deals!</p>
     </section>
 
     <!-- Contact Us Section -->
     <section id="contact" class="container mx-auto my-12 p-6 md:p-10 bg-primary-orange text-white rounded-xl shadow-lg text-center">
-        <h2 class="text-4xl font-bold text-secondary-white mb-6 border-b-4 border-secondary-white pb-2 inline-block">Contact Us</h2>
-        <div class="flex flex-col items-center justify-center space-y-4 text-lg mb-6">
+        <h2 class="text-3xl md:text-4xl font-bold text-secondary-white mb-4 md:mb-6 border-b-4 border-secondary-white pb-2 inline-block">Contact Us</h2>
+        <div class="flex flex-col items-center justify-center space-y-3 md:space-y-4 text-base md:text-lg mb-4 md:mb-6">
             <p class="flex items-center"><i class="fas fa-star text-secondary-white mr-2"></i> Rating: <span class="font-bold ml-1">4.8 stars</span></p>
             <p class="flex items-center"><i class="fas fa-map-marker-alt text-secondary-white mr-2"></i> 123 Kimathi St, Nairobi, Kenya</p>
             <p class="flex items-center"><i class="fas fa-phone text-secondary-white mr-2"></i> +254 712 345 678</p>
             <p class="flex items-center"><i class="fas fa-envelope text-secondary-white mr-2"></i> info@casitaspicehouse.com</p>
         </div>
-        <div class="mt-8">
-            <a href="https://www.google.com/maps/search/123+Kimathi+St,+Nairobi,+Kenya" target="_blank" class="bg-secondary-white text-primary-orange px-6 py-3 rounded-full shadow-lg hover:bg-gray-200 transform hover:scale-105 transition duration-300 ease-in-out inline-flex items-center">
+        <div class="mt-6 md:mt-8">
+            <a href="https://www.google.com/maps/search/123+Kimathi+St,+Nairobi,+Kenya" target="_blank" class="bg-secondary-white text-primary-orange px-5 py-2 md:px-6 md:py-3 rounded-full shadow-lg hover:bg-gray-200 transform hover:scale-105 transition duration-300 ease-in-out inline-flex items-center">
                 <i class="fas fa-location-arrow mr-2"></i> Get Directions
             </a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-6 text-center">
+    <footer class="bg-gray-800 text-white py-4 md:py-6 text-center">
         <div class="container mx-auto">
-            <p>&copy; 2024 Casita Spice House. All rights reserved.</p>
+            <p class="text-sm md:text-base">&copy; 2024 Casita Spice House. All rights reserved.</p>
         </div>
     </footer>
 
@@ -436,17 +438,17 @@
     <!-- Cart Sidebar -->
     <div id="cart-sidebar" class="cart-sidebar">
         <a href="javascript:void(0)" class="closebtn" id="close-cart-btn">&times;</a>
-        <h3 class="text-2xl font-bold text-primary-orange px-6 pt-4 pb-2 border-b-2 border-primary-orange">Your Cart</h3>
+        <h3 class="text-xl md:text-2xl font-bold text-primary-orange px-4 pt-4 pb-2 border-b-2 border-primary-orange">Your Cart</h3>
         <div id="cart-items" class="p-4 overflow-y-auto" style="max-height: calc(100% - 150px);">
             <!-- Cart items will be loaded here -->
             <p class="text-gray-500 text-center py-4" id="empty-cart-message">Your cart is empty.</p>
         </div>
         <div class="p-4 border-t-2 border-primary-orange flex flex-col items-center">
-            <div class="flex justify-between w-full mb-4 text-xl font-bold">
+            <div class="flex justify-between w-full mb-3 text-lg font-bold">
                 <span>Total:</span>
                 <span id="cart-total">KES 0.00</span>
             </div>
-            <button id="checkout-button" class="bg-primary-orange text-secondary-white w-full px-6 py-3 rounded-full shadow-lg hover:bg-orange-600 transform hover:scale-105 transition duration-300 ease-in-out text-lg font-semibold">
+            <button id="checkout-button" class="bg-primary-orange text-secondary-white w-full px-5 py-2 rounded-full shadow-lg hover:bg-orange-600 transform hover:scale-105 transition duration-300 ease-in-out text-base font-semibold">
                 Proceed to Checkout
             </button>
         </div>
@@ -633,7 +635,7 @@
                 const action = event.target.dataset.action;
                 updateQuantity(id, action);
             } else if (event.target.classList.contains('remove-item')) {
-                const id = event.target.dataset.id;
+                const id = event.target.id;
                 removeItem(id);
             }
         });
