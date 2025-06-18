@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casita Spice House</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f8f8; /* Light background for overall page */
+        }
+        /* Custom colors based on theme: Orange and White */
+        .bg-primary-orange { background-color: #FF7F00; } /* A vibrant orange */
+        .text-primary-orange { color: #FF7F00; }
+        .bg-secondary-white { background-color: #FFFFFF; } /* Pure white */
+        .text-secondary-white { color: #FFFFFF; }
+        .text-dark-gray { color: #333333; } /* For contrast on white backgrounds */
+        .border-primary-orange { border-color: #FF7F00; }
+
+
+        /* Custom styles for image zoom effect */
+        .image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem; /* Rounded corners for images */
+        }
+
+        .image-container img {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.05); /* Zoom effect on hover */
+        }
+
+        /* Modal for image zoom */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain; /* Ensure image fits within bounds */
+            border-radius: 0.75rem; /* Rounded corners for the zoomed image */
+        }
+
+        .close-button {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Cart sidebar */
+        .cart-sidebar {
+            width: 0;
+            position: fixed;
+            z-index: 1001;
+            height: 100%;
+            top: 0;
+            right: 0;
+            background-color: #fff;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            box-shadow: -4px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .cart-sidebar.open {
+            width: 320px; /* Adjust width as needed */
+        }
+
+        .cart-sidebar .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+            cursor: pointer;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Hero section slideshow */
+        .hero-slideshow {
+            width: 100%;
+            height: 600px; /* Fixed height for consistency */
+            overflow: hidden;
+            position: relative;
+            border-radius: 1rem; /* Rounded corners for hero */
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Header Section -->
+    <header class="bg-primary-orange text-white shadow-lg p-4 md:p-6 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center flex-wrap">
+            <!-- Logo Placeholder -->
+            <div class="text-3xl font-bold tracking-wide text-secondary-white">
+                <img src="https://placehold.co/150x50/FFFFFF/FF7F00?text=Casita+Spice+House+Logo" alt="Casita Spice House Logo" class="h-12 rounded-lg">
+            </div>
+
+            <!-- Navigation -->
+            <nav class="flex-grow text-center mt-4 md:mt-0">
+                <ul class="flex justify-center space-x-6 md:space-x-10 text-lg">
+                    <li><a href="#home" class="hover:text-secondary-white transition duration-300 ease-in-out px-3 py-2 rounded-md">Home</a></li>
+                    <li><a href="#about" class="hover:text-secondary-white transition duration-300 ease-in-out px-3 py-2 rounded-md">About Us</a></li>
+                    <li><a href="#menu" class="hover:text-secondary-white transition duration-300 ease-in-out px-3 py-2 rounded-md">Menu</a></li>
+                    <li><a href="#contact" class="hover:text-secondary-white transition duration-300 ease-in-out px-3 py-2 rounded-md">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- Cart Icon -->
+            <div class="relative mt-4 md:mt-0">
+                <button id="cart-button" class="bg-secondary-white text-primary-orange px-4 py-2 rounded-full shadow-md hover:bg-gray-200 transition duration-300 ease-in-out flex items-center">
+                    <i class="fas fa-shopping-cart mr-2"></i>
+                    <span id="cart-count" class="font-semibold">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative hero-slideshow container mx-auto my-8 p-4 md:p-8 flex items-center justify-center text-center shadow-lg">
+        <div class="slide active" style="background-image: url('https://placehold.co/1200x600/FF7F00/FFFFFF?text=Delicious+Indian+Cuisine');"></div>
+        <div class="slide" style="background-image: url('https://placehold.co/1200x600/FFFFFF/FF7F00?text=Experience+Authentic+Flavors');"></div>
+        <div class="slide" style="background-image: url('https://placehold.co/1200x600/FF7F00/FFFFFF?text=Fresh+Spices%2C+Perfect+Dishes');"></div>
+
+        <div class="relative z-10 p-8 bg-black bg-opacity-50 rounded-xl shadow-2xl">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4 animate-bounce">
+                Welcome to Casita Spice House
+            </h1>
+            <p class="text-xl md:text-2xl text-primary-orange font-medium mb-6">
+                Authentic Indian Flavors, Unforgettable Dining.
+            </p>
+            <a href="#menu" class="bg-primary-orange text-secondary-white text-xl font-bold py-3 px-8 rounded-full shadow-lg hover:bg-orange-600 transform hover:scale-105 transition duration-300 ease-in-out inline-block">
+                Explore Our Menu
+            </a>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="container mx-auto my-12 p-6 md:p-10 bg-white rounded-xl shadow-lg flex flex-col md:flex-row items-center gap-8">
+        <div class="md:w-1/2">
+            <h2 class="text-4xl font-bold text-primary-orange mb-6 border-b-4 border-primary-orange pb-2 inline-block">About Casita Spice House</h2>
+            <p class="text-lg leading-relaxed text-dark-gray">
+                Casita Spice House brings the authentic taste of Indian cuisine to Nairobi. Our chefs carefully craft each dish using traditional recipes and the freshest spices to ensure an unforgettable dining experience.
+            </p>
+        </div>
+        <div class="md:w-1/2 image-container">
+            <img src="https://placehold.co/600x400/FFFFFF/FF7F00?text=About+Us+Image" alt="About Casita Spice House" class="w-full h-auto rounded-lg shadow-xl cursor-pointer">
+        </div>
+    </section>
+
+    <!-- Menu Categories Section -->
+    <section class="container mx-auto my-12 p-6 md:p-10 bg-primary-orange text-white rounded-xl shadow-lg">
+        <h2 class="text-4xl font-bold text-secondary-white mb-8 text-center border-b-4 border-secondary-white pb-2 inline-block mx-auto block">Our Menu Categories</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Curry Category -->
+            <div class="bg-white text-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out">
+                <h3 class="text-2xl font-semibold text-primary-orange mb-4 text-center">Curry</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="image-container">
+                        <img src="https://placehold.co/200x150/FFFFFF/FF7F00?text=Curry+Dish+1" alt="Curry Dish 1" class="w-full h-auto rounded-md shadow-sm cursor-pointer">
+                    </div>
+                    <div class="image-container">
+                        <img src="https://placehold.co/200x150/FF7F00/FFFFFF?text=Curry+Dish+2" alt="Curry Dish 2" class="w-full h-auto rounded-md shadow-sm cursor-pointer">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tandoori Category -->
+            <div class="bg-white text-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out">
+                <h3 class="text-2xl font-semibold text-primary-orange mb-4 text-center">Tandoori</h3>
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="image-container">
+                        <img src="https://placehold.co/150x100/FFFFFF/FF7F00?text=Tandoori+1" alt="Tandoori Dish 1" class="w-full h-auto rounded-md shadow-sm cursor-pointer">
+                    </div>
+                    <div class="image-container">
+                        <img src="https://placehold.co/150x100/FF7F00/FFFFFF?text=Tandoori+2" alt="Tandoori Dish 2" class="w-full h-auto rounded-md shadow-sm cursor-pointer">
+                    </div>
+                    <div class="image-container">
+                        <img src="https://placehold.co/150x100/FFFFFF/FF7F00?text=Tandoori+3" alt="Tandoori Dish 3" class="w-full h-auto rounded-md shadow-sm cursor-pointer">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Biryani Category -->
+            <div class="bg-white text-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out">
+                <h3 class="text-2xl font-semibold text-primary-orange mb-4 text-center">Biryani</h3>
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="image-container">
+                        <img src="https://placehold.co/150x100/FF7F00/FFFFFF?text=Biryani+1" alt="Biryani Dish 1" class="w-full h-auto rounded-md shadow-sm cursor-pointer">
+                    </div>
+                    <div class="image-container">
+                        <img src="https://placehold.co/150x100/FFFFFF/FF7F00?text=Biryani+2" alt="Biryani Dish 2" class="w-full h-auto rounded-md shadow-sm cursor-pointer">
+                    </div>
+                    <div class="image-container">
+                        <img src="https://placehold.co/150x100/FF7F00/FFFFFF?text=Biryani+3" alt="Biryani Dish 3" class="w-full h-auto rounded-md shadow-sm cursor-pointer">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Desserts Category -->
+            <div class="bg-white text-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out">
+                <h3 class="text-2xl font-semibold text-primary-orange mb-4 text-center">Desserts</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="image-container">
+                        <img src="https://placehold.co/200x150/FFFFFF/FF7F00?text=Dessert+1" alt="Dessert 1" class="w-full h-auto rounded-md shadow-sm cursor-pointer">
+                    </div>
+                    <div class="image-container">
+                        <img src="https://placehold.co/200x150/FF7F00/FFFFFF?text=Dessert+2" alt="Dessert 2" class="w-full h-auto rounded-md shadow-sm cursor-pointer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="container mx-auto my-12 p-6 md:p-10 bg-white rounded-xl shadow-lg">
+        <h2 class="text-4xl font-bold text-primary-orange mb-8 text-center border-b-4 border-primary-orange pb-2 inline-block mx-auto block">Our Delicacies</h2>
+
+        <!-- Tabs for Menu Segments -->
+        <div class="flex justify-center mb-8">
+            <button class="menu-tab px-6 py-3 rounded-full text-lg font-semibold mx-2 bg-primary-orange text-secondary-white hover:bg-orange-600 hover:text-white transition duration-300 ease-in-out" data-target="featured-menu">Featured</button>
+            <button class="menu-tab px-6 py-3 rounded-full text-lg font-semibold mx-2 bg-gray-200 text-gray-700 hover:bg-primary-orange hover:text-secondary-white transition duration-300 ease-in-out" data-target="main-dishes-menu">Main Dishes</button>
+            <button class="menu-tab px-6 py-3 rounded-full text-lg font-semibold mx-2 bg-gray-200 text-gray-700 hover:bg-primary-orange hover:text-secondary-white transition duration-300 ease-in-out" data-target="specials-menu">Specials</button>
+        </div>
+
+        <!-- Featured Dishes Segment -->
+        <div id="featured-menu" class="menu-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Butter Chicken -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
+                <div class="image-container mb-4">
+                    <img src="https://placehold.co/400x250/FFFFFF/FF7F00?text=Butter+Chicken" alt="Butter Chicken" class="w-full h-auto rounded-lg shadow-sm cursor-pointer">
+                </div>
+                <h3 class="text-2xl font-bold text-primary-orange mb-2">Butter Chicken</h3>
+                <p class="text-dark-gray mb-3">Creamy tomato-based curry with tender chicken pieces, a classic Indian delight.</p>
+                <div class="flex justify-between items-center">
+                    <span class="text-primary-orange font-bold text-xl">KES 850</span>
+                    <button class="add-to-cart bg-primary-orange text-secondary-white px-5 py-2 rounded-full shadow-md hover:bg-orange-600 hover:text-white transition duration-300 ease-in-out"
+                            data-id="bc1" data-name="Butter Chicken" data-price="850">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Vegetable Biryani -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
+                <div class="image-container mb-4">
+                    <img src="https://placehold.co/400x250/FF7F00/FFFFFF?text=Vegetable+Biryani" alt="Vegetable Biryani" class="w-full h-auto rounded-lg shadow-sm cursor-pointer">
+                </div>
+                <h3 class="text-2xl font-bold text-primary-orange mb-2">Vegetable Biryani</h3>
+                <p class="text-dark-gray mb-3">Fragrant basmati rice cooked with assorted vegetables and aromatic spices.</p>
+                <div class="flex justify-between items-center">
+                    <span class="text-primary-orange font-bold text-xl">KES 700</span>
+                    <button class="add-to-cart bg-primary-orange text-secondary-white px-5 py-2 rounded-full shadow-md hover:bg-orange-600 hover:text-white transition duration-300 ease-in-out"
+                            data-id="vb1" data-name="Vegetable Biryani" data-price="700">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Gulab Jamun -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
+                <div class="image-container mb-4">
+                    <img src="https://placehold.co/400x250/FFFFFF/FF7F00?text=Gulab+Jamun" alt="Gulab Jamun" class="w-full h-auto rounded-lg shadow-sm cursor-pointer">
+                </div>
+                <h3 class="text-2xl font-bold text-primary-orange mb-2">Gulab Jamun</h3>
+                <p class="text-dark-gray mb-3">Soft, deep-fried milk-solids dumplings, soaked in rose-flavored sugar syrup.</p>
+                <div class="flex justify-between items-center">
+                    <span class="text-primary-orange font-bold text-xl">KES 300</span>
+                    <button class="add-to-cart bg-primary-orange text-secondary-white px-5 py-2 rounded-full shadow-md hover:bg-orange-600 hover:text-white transition duration-300 ease-in-out"
+                            data-id="gj1" data-name="Gulab Jamun" data-price="300">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Dishes Segment (Hidden by default) -->
+        <div id="main-dishes-menu" class="menu-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 hidden">
+            <!-- Chicken Tikka Masala -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
+                <div class="image-container mb-4">
+                    <img src="https://placehold.co/400x250/FF7F00/FFFFFF?text=Chicken+Tikka+Masala" alt="Chicken Tikka Masala" class="w-full h-auto rounded-lg shadow-sm cursor-pointer">
+                </div>
+                <h3 class="text-2xl font-bold text-primary-orange mb-2">Chicken Tikka Masala</h3>
+                <p class="text-dark-gray mb-3">Grilled chicken pieces in a rich, spiced tomato and cream sauce.</p>
+                <div class="flex justify-between items-center">
+                    <span class="text-primary-orange font-bold text-xl">KES 900</span>
+                    <button class="add-to-cart bg-primary-orange text-secondary-white px-5 py-2 rounded-full shadow-md hover:bg-orange-600 hover:text-white transition duration-300 ease-in-out"
+                            data-id="ctm1" data-name="Chicken Tikka Masala" data-price="900">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Palak Paneer -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
+                <div class="image-container mb-4">
+                    <img src="https://placehold.co/400x250/FFFFFF/FF7F00?text=Palak+Paneer" alt="Palak Paneer" class="w-full h-auto rounded-lg shadow-sm cursor-pointer">
+                </div>
+                <h3 class="text-2xl font-bold text-primary-orange mb-2">Palak Paneer</h3>
+                <p class="text-dark-gray mb-3">Cottage cheese cubes in a creamy spinach gravy, a nutritious vegetarian option.</p>
+                <div class="flex justify-between items-center">
+                    <span class="text-primary-orange font-bold text-xl">KES 750</span>
+                    <button class="add-to-cart bg-primary-orange text-secondary-white px-5 py-2 rounded-full shadow-md hover:bg-orange-600 hover:text-white transition duration-300 ease-in-out"
+                            data-id="pp1" data-name="Palak Paneer" data-price="750">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Vegetable Korma -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
+                <div class="image-container mb-4">
+                    <img src="https://placehold.co/400x250/FF7F00/FFFFFF?text=Vegetable+Korma" alt="Vegetable Korma" class="w-full h-auto rounded-lg shadow-sm cursor-pointer">
+                </div>
+                <h3 class="text-2xl font-bold text-primary-orange mb-2">Vegetable Korma</h3>
+                <p class="text-dark-gray mb-3">Mixed vegetables cooked in a rich, mild, and creamy cashew-based sauce.</p>
+                <div class="flex justify-between items-center">
+                    <span class="text-primary-orange font-bold text-xl">KES 680</span>
+                    <button class="add-to-cart bg-primary-orange text-secondary-white px-5 py-2 rounded-full shadow-md hover:bg-orange-600 hover:text-white transition duration-300 ease-in-out"
+                            data-id="vk1" data-name="Vegetable Korma" data-price="680">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Specials Segment (Hidden by default) -->
+        <div id="specials-menu" class="menu-content p-6 rounded-lg shadow-md bg-primary-orange text-secondary-white hidden">
+            <h3 class="text-3xl font-bold mb-4 text-center">Today's Specials</h3>
+            <ul class="list-disc list-inside text-lg leading-loose mx-auto max-w-2xl">
+                <li class="mb-2"><strong>Weekend Special Offer:</strong> Use code <code class="bg-white text-primary-orange px-2 py-1 rounded-md text-sm">CASITA25</code> for 25% off your first order!</li>
+                <li class="mb-2"><strong>Free Delivery:</strong> On orders over KES 1,500</li>
+                <li class="mb-2"><strong>Family Meal Deal:</strong> 20% off when ordering for 4+ people</li>
+                <li><strong>Loyalty Program:</strong> Earn points with every order and redeem for exclusive discounts!</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section id="contact" class="container mx-auto my-12 p-6 md:p-10 bg-primary-orange text-white rounded-xl shadow-lg text-center">
+        <h2 class="text-4xl font-bold text-secondary-white mb-6 border-b-4 border-secondary-white pb-2 inline-block">Contact Us</h2>
+        <div class="flex flex-col items-center justify-center space-y-4 text-lg mb-6">
+            <p class="flex items-center"><i class="fas fa-star text-secondary-white mr-2"></i> Rating: <span class="font-bold ml-1">4.8 stars</span></p>
+            <p class="flex items-center"><i class="fas fa-map-marker-alt text-secondary-white mr-2"></i> 123 Kimathi St, Nairobi, Kenya</p>
+            <p class="flex items-center"><i class="fas fa-phone text-secondary-white mr-2"></i> +254 712 345 678</p>
+            <p class="flex items-center"><i class="fas fa-envelope text-secondary-white mr-2"></i> info@casitaspicehouse.com</p>
+        </div>
+        <div class="mt-8">
+            <a href="https://www.google.com/maps/search/123+Kimathi+St,+Nairobi,+Kenya" target="_blank" class="bg-secondary-white text-primary-orange px-6 py-3 rounded-full shadow-lg hover:bg-gray-200 transform hover:scale-105 transition duration-300 ease-in-out inline-flex items-center">
+                <i class="fas fa-location-arrow mr-2"></i> Get Directions
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6 text-center">
+        <div class="container mx-auto">
+            <p>&copy; 2024 Casita Spice House. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Image Zoom Modal -->
+    <div id="image-zoom-modal" class="modal">
+        <span class="close-button">&times;</span>
+        <img class="modal-content" id="zoomed-image" src="" alt="Zoomed Image">
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="cart-sidebar">
+        <a href="javascript:void(0)" class="closebtn" id="close-cart-btn">&times;</a>
+        <h3 class="text-2xl font-bold text-primary-orange px-6 pt-4 pb-2 border-b-2 border-primary-orange">Your Cart</h3>
+        <div id="cart-items" class="p-4 overflow-y-auto" style="max-height: calc(100% - 150px);">
+            <!-- Cart items will be loaded here -->
+            <p class="text-gray-500 text-center py-4" id="empty-cart-message">Your cart is empty.</p>
+        </div>
+        <div class="p-4 border-t-2 border-primary-orange flex flex-col items-center">
+            <div class="flex justify-between w-full mb-4 text-xl font-bold">
+                <span>Total:</span>
+                <span id="cart-total">KES 0.00</span>
+            </div>
+            <button id="checkout-button" class="bg-primary-orange text-secondary-white w-full px-6 py-3 rounded-full shadow-lg hover:bg-orange-600 transform hover:scale-105 transition duration-300 ease-in-out text-lg font-semibold">
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+
+    <script>
+        // --- Slideshow Logic ---
+        const slides = document.querySelectorAll('.hero-slideshow .slide');
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (i === index) {
+                    slide.classList.add('active');
+                }
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        // Start slideshow
+        setInterval(nextSlide, 5000); // Change slide every 5 seconds
+        showSlide(currentSlide); // Show initial slide
+
+        // --- Image Zoom Modal Logic ---
+        const imageZoomModal = document.getElementById('image-zoom-modal');
+        const zoomedImage = document.getElementById('zoomed-image');
+        const closeButton = document.querySelector('.close-button');
+
+        document.querySelectorAll('.image-container img').forEach(image => {
+            image.addEventListener('click', function() {
+                imageZoomModal.style.display = 'flex'; // Use flex to center
+                zoomedImage.src = this.src;
+                zoomedImage.alt = this.alt;
+            });
+        });
+
+        closeButton.addEventListener('click', function() {
+            imageZoomModal.style.display = 'none';
+        });
+
+        imageZoomModal.addEventListener('click', function(event) {
+            if (event.target === imageZoomModal) { // Close when clicking outside the image
+                imageZoomModal.style.display = 'none';
+            }
+        });
+
+        // --- Menu Tab Logic ---
+        const menuTabs = document.querySelectorAll('.menu-tab');
+        const menuContents = document.querySelectorAll('.menu-content');
+
+        menuTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Deactivate all tabs and hide all content
+                menuTabs.forEach(t => {
+                    t.classList.remove('bg-primary-orange', 'text-secondary-white');
+                    t.classList.add('bg-gray-200', 'text-gray-700');
+                });
+                menuContents.forEach(content => content.classList.add('hidden'));
+
+                // Activate clicked tab and show corresponding content
+                this.classList.remove('bg-gray-200', 'text-gray-700');
+                this.classList.add('bg-primary-orange', 'text-secondary-white');
+                document.getElementById(this.dataset.target).classList.remove('hidden');
+            });
+        });
+
+        // Initialize first tab as active
+        document.querySelector('.menu-tab').click();
+
+        // --- Shopping Cart Logic ---
+        let cart = JSON.parse(localStorage.getItem('casitaSpiceCart')) || []; // Load cart from local storage
+        const cartButton = document.getElementById('cart-button');
+        const cartSidebar = document.getElementById('cart-sidebar');
+        const closeCartBtn = document.getElementById('close-cart-btn');
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartCountSpan = document.getElementById('cart-count');
+        const cartTotalSpan = document.getElementById('cart-total');
+        const checkoutButton = document.getElementById('checkout-button');
+        const emptyCartMessage = document.getElementById('empty-cart-message');
+
+        function saveCart() {
+            localStorage.setItem('casitaSpiceCart', JSON.stringify(cart));
+        }
+
+        function updateCartCount() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCountSpan.textContent = totalItems;
+            if (totalItems > 0) {
+                emptyCartMessage.classList.add('hidden');
+            } else {
+                emptyCartMessage.classList.remove('hidden');
+            }
+        }
+
+        function calculateCartTotal() {
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotalSpan.textContent = `KES ${total.toFixed(2)}`;
+        }
+
+        function renderCart() {
+            cartItemsContainer.innerHTML = ''; // Clear previous items
+            if (cart.length === 0) {
+                emptyCartMessage.classList.remove('hidden');
+                cartItemsContainer.appendChild(emptyCartMessage);
+            } else {
+                emptyCartMessage.classList.add('hidden');
+                cart.forEach(item => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.classList.add('cart-item', 'border-b', 'border-gray-200', 'py-3');
+                    itemDiv.innerHTML = `
+                        <div class="flex-grow">
+                            <p class="font-semibold text-dark-gray">${item.name}</p>
+                            <p class="text-sm text-gray-600">KES ${item.price.toFixed(2)} x ${item.quantity}</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button class="update-quantity bg-gray-200 text-gray-700 w-6 h-6 rounded-full flex items-center justify-center text-sm hover:bg-gray-300" data-id="${item.id}" data-action="decrease">-</button>
+                            <span class="font-bold">${item.quantity}</span>
+                            <button class="update-quantity bg-gray-200 text-gray-700 w-6 h-6 rounded-full flex items-center justify-center text-sm hover:bg-gray-300" data-id="${item.id}" data-action="increase">+</button>
+                            <button class="remove-item text-red-500 hover:text-red-700 ml-2 text-xl" data-id="${item.id}">&times;</button>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(itemDiv);
+                });
+            }
+            updateCartCount();
+            calculateCartTotal();
+            saveCart(); // Save changes to local storage
+        }
+
+        function addToCart(itemDetails) {
+            const existingItem = cart.find(item => item.id === itemDetails.id);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ ...itemDetails, quantity: 1 });
+            }
+            renderCart();
+        }
+
+        function updateQuantity(id, action) {
+            const itemIndex = cart.findIndex(item => item.id === id);
+            if (itemIndex > -1) {
+                if (action === 'increase') {
+                    cart[itemIndex].quantity++;
+                } else if (action === 'decrease') {
+                    cart[itemIndex].quantity--;
+                    if (cart[itemIndex].quantity <= 0) {
+                        cart.splice(itemIndex, 1); // Remove if quantity is 0 or less
+                    }
+                }
+                renderCart();
+            }
+        }
+
+        function removeItem(id) {
+            cart = cart.filter(item => item.id !== id);
+            renderCart();
+        }
+
+        // Event listener for "Add to Cart" buttons
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const itemDetails = {
+                    id: this.dataset.id,
+                    name: this.dataset.name,
+                    price: parseFloat(this.dataset.price)
+                };
+                addToCart(itemDetails);
+                // Optionally open cart sidebar immediately
+                cartSidebar.classList.add('open');
+            });
+        });
+
+        // Event listeners for quantity update and remove buttons inside cart
+        cartItemsContainer.addEventListener('click', function(event) {
+            if (event.target.classList.contains('update-quantity')) {
+                const id = event.target.dataset.id;
+                const action = event.target.dataset.action;
+                updateQuantity(id, action);
+            } else if (event.target.classList.contains('remove-item')) {
+                const id = event.target.dataset.id;
+                removeItem(id);
+            }
+        });
+
+
+        // Cart sidebar open/close
+        cartButton.addEventListener('click', () => {
+            cartSidebar.classList.toggle('open');
+        });
+
+        closeCartBtn.addEventListener('click', () => {
+            cartSidebar.classList.remove('open');
+        });
+
+        // Checkout Button
+        checkoutButton.addEventListener('click', () => {
+            if (cart.length > 0) {
+                // In a real application, this would send data to a backend
+                // For now, we'll just log and clear the cart.
+                console.log('--- Order Placed ---');
+                console.log(cart);
+                console.log('Total: ' + cartTotalSpan.textContent);
+                // Simple custom modal for checkout success
+                const checkoutMessage = document.createElement('div');
+                checkoutMessage.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background-color: #4CAF50;
+                    color: white;
+                    padding: 20px 30px;
+                    border-radius: 10px;
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                    z-index: 1002;
+                    text-align: center;
+                    font-size: 1.2rem;
+                    opacity: 0;
+                    transition: opacity 0.5s ease-in-out;
+                `;
+                checkoutMessage.textContent = 'Order Placed Successfully!';
+                document.body.appendChild(checkoutMessage);
+
+                setTimeout(() => {
+                    checkoutMessage.style.opacity = 1;
+                }, 10);
+
+                setTimeout(() => {
+                    checkoutMessage.style.opacity = 0;
+                    checkoutMessage.addEventListener('transitionend', () => checkoutMessage.remove());
+                }, 3000); // Message disappears after 3 seconds
+
+                cart = []; // Clear the cart
+                renderCart(); // Re-render cart to show it's empty
+                cartSidebar.classList.remove('open'); // Close cart sidebar
+            } else {
+                const emptyCartAlert = document.createElement('div');
+                emptyCartAlert.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background-color: #f44336; /* Red color */
+                    color: white;
+                    padding: 20px 30px;
+                    border-radius: 10px;
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                    z-index: 1002;
+                    text-align: center;
+                    font-size: 1.2rem;
+                    opacity: 0;
+                    transition: opacity 0.5s ease-in-out;
+                `;
+                emptyCartAlert.textContent = 'Your cart is empty. Please add items before checking out.';
+                document.body.appendChild(emptyCartAlert);
+
+                setTimeout(() => {
+                    emptyCartAlert.style.opacity = 1;
+                }, 10);
+
+                setTimeout(() => {
+                    emptyCartAlert.style.opacity = 0;
+                    emptyCartAlert.addEventListener('transitionend', () => emptyCartAlert.remove());
+                }, 3000); // Alert disappears after 3 seconds
+            }
+        });
+
+        // Initial render of cart when page loads
+        document.addEventListener('DOMContentLoaded', renderCart);
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
